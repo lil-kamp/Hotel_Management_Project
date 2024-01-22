@@ -13,7 +13,11 @@
         <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
         <property name="hbm2ddl.auto">update</property>
 
-
-
+        <mapping class="model.Room"/>
+        <mapping class="model.Reservation"/>
+        <mapping class="model.Hotel"/>
+        <mapping class="model.users.Customer"/>
+        <mapping class="model.users.Manager"/>
+        <mapping class="model.users.Worker"/>
     </session-factory>
 </hibernate-configuration>

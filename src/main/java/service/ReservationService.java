@@ -62,7 +62,6 @@ public class ReservationService {
                     .getResultList());
             return queue;
         }catch (Exception e){
-            e.printStackTrace();
             return new PriorityQueue<>();
         }
     }

@@ -42,4 +42,16 @@ public class HotelService {
             return null;
         }
     }
+
+    public Hotel find(){
+        try(Session session = HibernateUtil.getSessionFactory().openSession()){
+            entityManager = session.getEntityManagerFactory().createEntityManager();
+
+            entityManager.getTransaction().begin();
+            String jpql = "select h from Hotel h";
+            return entityManager.createQuery(jpql, Hotel.class).getSingleResult();
+        }catch (Exception e){
+            return null;
+        }
+    }
 }
