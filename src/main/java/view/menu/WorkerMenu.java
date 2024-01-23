@@ -1,11 +1,16 @@
 package view.menu;
 
+import view.Base;
+
 import javax.swing.*;
 
-public class WorkerMenu extends Menu{
+public class WorkerMenu extends Base {
 
     public WorkerMenu(){
         super("Worker Menu");
+//        JLabel label = new JLabel(String.join(" ", Repository.currentPerson.getFirstName(), "!!"));
+//        label.setBounds(190, 20, 120, 30);
+//        panel.add(label);
         JButton roomsButton = new JButton();
         roomsButton.setText("Accepted res");
         roomsButton.setBounds(30, 60, 120, 30);

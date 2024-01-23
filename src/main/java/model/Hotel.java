@@ -26,6 +26,15 @@ public class Hotel {
     @Enumerated(EnumType.STRING)
     private HotelStatus status;
 
+    public Hotel(Long id, Manager manager, Double balance, HotelStatus status) {
+        this.id = id;
+        this.manager = manager;
+        this.balance = balance;
+        this.status = status;
+    }
+
+    public Hotel(){}
+
     public Long getId() {
         return id;
     }
