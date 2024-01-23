@@ -1,10 +1,12 @@
 package service;
 
+import model.Room;
 import model.users.Manager;
 import org.hibernate.Session;
 import util.HibernateUtil;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class ManagerService {
@@ -41,6 +43,21 @@ public class ManagerService {
             entityManager.getTransaction().commit();
             return saving;
         } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public Manager login(String username, String password){
+        try(Session session = HibernateUtil.getSessionFactory().openSession()){
+            entityManager = session.getEntityManagerFactory().createEntityManager();
+
+            entityManager.getTransaction().begin();
+            String jpql = "select m from Manager m where m.email = :username and m.password = :pass";
+            return entityManager.createQuery(jpql, Manager.class)
+                    .setParameter("username", username)
+                    .setParameter("pass", password)
+                    .getSingleResult();
+        }catch (Exception e){
             return null;
         }
     }

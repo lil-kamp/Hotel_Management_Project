@@ -59,6 +59,18 @@ public class RoomService {
         }
     }
 
+    public List<Room> findAllAllowed(){
+        try(Session session = HibernateUtil.getSessionFactory().openSession()){
+            entityManager = session.getEntityManagerFactory().createEntityManager();
+
+            entityManager.getTransaction().begin();
+            String jpql = "select r from Room r where r.allowed = true";
+            return entityManager.createQuery(jpql, Room.class).getResultList();
+        }catch (Exception e){
+            return new ArrayList<>();
+        }
+    }
+
     public Room get(long id){
         try(Session session = HibernateUtil.getSessionFactory().openSession()) {
             entityManager = session.getEntityManagerFactory().createEntityManager();

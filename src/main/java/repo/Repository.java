@@ -1,6 +1,7 @@
 package repo;
 
 import model.users.Person;
+import view.login.Login;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -18,5 +19,10 @@ public class Repository {
             frameMap.put(f.getName() , f);
 
         return frameMap;
+    }
+
+    public static void logout(){
+        currentPerson = null;
+        new Login();
     }
 }

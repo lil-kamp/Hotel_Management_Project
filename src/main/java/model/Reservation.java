@@ -25,6 +25,18 @@ public class Reservation {
     @Enumerated(EnumType.STRING)
     private ReservationStatus status;
 
+    public Reservation(){}
+
+    public Reservation(Long id, Date date, Customer customer, Double price, Integer days, Room room, ReservationStatus status) {
+        this.id = id;
+        this.date = date;
+        this.customer = customer;
+        this.price = price;
+        this.days = days;
+        this.room = room;
+        this.status = status;
+    }
+
     public Long getId() {
         return id;
     }

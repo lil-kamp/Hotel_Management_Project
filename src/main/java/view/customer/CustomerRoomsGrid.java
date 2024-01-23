@@ -1,33 +1,37 @@
-package view.manager;
+package view.customer;
 
+import model.Reservation;
 import model.Room;
 import repo.Repository;
 import service.RoomService;
 import view.Grid;
+import view.menu.CustomerMenu;
 import view.menu.ManagerMenu;
 
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-public class RoomsGrid extends Grid {
+public class CustomerRoomsGrid extends Grid {
 
-    public RoomsGrid(){
+    public CustomerRoomsGrid(){
         super("rooms");
-        this.setName("RoomsGrid");
+        this.setName("CustomerRoomsGrid");
+        this.addButton.setText("reserve");
+        this.editButton.setVisible(false);
         initTable();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                new ManagerMenu();
+                new CustomerMenu();
             }
         });
-        addButton.addActionListener(e -> add());
-        editButton.addActionListener(e -> edit());
+        addButton.addActionListener(e -> reserve());
     }
 
     private void initTable(){
@@ -36,7 +40,7 @@ public class RoomsGrid extends Grid {
         dtm.setColumnIdentifiers(header);
         table.setModel(dtm);
 
-        List<Room> list = RoomService.getInstance().findAll();
+        List<Room> list = RoomService.getInstance().findAllAllowed();
         for (Room r : list) {
             String bedCount = (r.getBedCount() != null) ? r.getBedCount().toString() : "";
             String price = (r.getPrice() != null) ? r.getPrice().toString() : "";
@@ -46,16 +50,12 @@ public class RoomsGrid extends Grid {
         }
     }
 
-    private void edit(){
-        Frame current = Repository.getFrames().get("RoomsDialog");
-        if (!Objects.isNull(current))
-            current.dispose();
+    private void reserve(){
         int row = table.convertRowIndexToModel(table.getSelectedRow());
         Long value = (Long) table.getModel().getValueAt(row, 3);
-        new RoomsDialog(value , true);
-    }
-
-    private void add(){
-        new RoomsDialog(0, false);
+        Frame current = Repository.getFrames().get("CustomerRoomsDialog");
+        if (!Objects.isNull(current))
+            current.dispose();
+        new CustomerRoomsDialog(value);
     }
 }
